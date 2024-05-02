@@ -1,19 +1,45 @@
-
 const express = require('express')
+const db = require('../db')
 
 const router = express.Router()
 
 router.get('/company',(request,response)=>{
-    response.send('lsit of companies')
+    const statement = `select id,title,description from company`
+    db.execute(statement, (error,data) => {
+        response.send(data)
+        console.log('list of comapnies')
+    })
+    
 })
+
 router.post('/company',(request,response)=>{
-    response.send('comapny created')
+    const { title,description } = request.body
+    const statement = `insert into company (title,description) values('${title}','${description}')`
+    db.execute(statement,(error,data) =>{
+        response.send(data)
+    })
+    
 })
-router.put('/company',(request,response)=>{
-    response.send('comapny updated')
+
+router.put('/company/:id',(request,response)=>{
+    const { id } = request.params
+    const { title,description } = request.body
+
+    const statement = `update company set title ='${title}', description = '${description}' where id = '${id}'`
+    db.execute(statement,(error,data) =>{
+        response.send(data)
+        console.log("company updated")
+    })
+   
 })
-router.delete('/company',(request,response)=>{
-    response.send('company deleted')
+
+router.delete('/company/:id',(request,response)=>{
+    const { id } = request.params
+    const statement = `delete from company where id = '${id}' `
+    db.execute(statement,(error,data) =>{
+        response.send(data)
+        console.log('company deleted')
+    })
 })
 
 module.exports = router

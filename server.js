@@ -1,4 +1,6 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+
 const routerCategories = require('./routes/category')
 const routerCompanies = require('./routes/company')
 const routerProducts = require('./routes/product')
@@ -6,6 +8,8 @@ const routerUsers = require('./routes/user')
 
 
 const app = express()
+
+app.use(bodyParser.json())
 
 app.use(routerCategories)
 app.use(routerCompanies)
