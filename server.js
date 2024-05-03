@@ -8,19 +8,21 @@ const routerCompanies = require('./routes/company')
 const routerProducts = require('./routes/product')
 const routerUser = require('./routes/user')
 
-
-
 const app = express()
 
 app.use(bodyParser.json())
 
 app.use((request,response,next) =>{
 
-    if(request.url == '/user/signin' || request.url == '/user/signup' ){
+    if(request.url == '/user/signin' || 
+    request.url == '/user/signup' || 
+    request.url.startsWith('/user/verify' ) ||
+    request.url.startsWith('/user/status' )
+){
         next()
     } else {
         const token = request.headers['token']
-        console.log('inside server.js --')
+        
         try{
             const payload = jwt.verify(token, config.secret)
             request.userId = payload['id']
