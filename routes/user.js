@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('../db')
 const crypto = require('crypto-js')
+const mailer = require('../mailer')
 const router = express.Router()
 
 router.post('/user/signup',(request,response) =>{
@@ -17,12 +18,15 @@ router.post('/user/signup',(request,response) =>{
         if(error != null){
             result['status'] = 'error'
             result['error'] = error
+            response.send(result)
         }
         else{
             result['status'] = 'success'
             result['data'] = data
+            mailer.sendEmail('signup.html','welcome to ecommerce application',email,(error,info) => {
+                response.send(result)
+            })
         }
-        response.send(result)
     })
 })
 router.post('/user/signin',(request,response) =>{
