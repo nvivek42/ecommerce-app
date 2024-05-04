@@ -1,5 +1,5 @@
 libraries used :
 
-JWT : security
-Nodemailer: confirm Email notificsation
-crypto.js : Hashing password
+1.JWT : security
+2.Nodemailer: confirm Email notification
+3.crypto.js : password encryption
