@@ -28,6 +28,7 @@ router.patch('/user/status/:id', (request, response) => {
 router.post('/user/signup',(request,response) =>{
     const { firstName, lastName, email, password } = request.body;
     
+    console.log(request.body)
     const encryptedPassword = '' + crypto.SHA256(password)
 
     const statement = `insert into user ( firstName, lastName, email, password,status ) values ('${firstName}', '${lastName}', '${email}', '${encryptedPassword}',0)`

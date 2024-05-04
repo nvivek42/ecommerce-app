@@ -8,12 +8,13 @@ router.get('/company',(request,response)=>{
     const statement = `select id,title,description from company`
     db.execute(statement, (error,data) => {
         response.send(utils.createResult(error,data))
-        console.log('list of comapnies')
+        console.log('list of companies')
     })
     
 })
 
 router.post('/company',(request,response)=>{
+    console.log("in company post-add company")
     const { title,description } = request.body
     const statement = `insert into company (title,description) values('${title}','${description}')`
     db.execute(statement,(error,data) =>{
