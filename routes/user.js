@@ -106,7 +106,7 @@ router.post('/user/signin',(request,response) =>{
 
 router.get('/user/profile',(request,response) =>{
     
-    const statement = `select firstName, lastName, email, phone from user where id = '${request.userId}' `
+    const statement = `select id,firstName, lastName, email, phone from user where id = '${request.userId}' `
 
     db.execute(statement,(error,data) =>{    
         response.send(utils.createResult(error,data))

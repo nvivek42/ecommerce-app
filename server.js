@@ -9,6 +9,7 @@ const routerCompanies = require('./routes/company')
 const routerProducts = require('./routes/product')
 const routerUser = require('./routes/user')
 const routerCart = require('./routes/cart')
+const routerOrder = require('./routes/order')
 
 
 const app = express()
@@ -30,7 +31,7 @@ app.use((request,response,next) =>{
         const token = request.headers['token']
         
         try{
-            console.log('in verify token')
+           
             const payload = jwt.verify(token, config.secret)
             request.userId = payload['id']
             next()
@@ -46,9 +47,11 @@ app.use((request,response,next) =>{
 
 app.use(routerCategories)
 app.use(routerCompanies)
-app.use(routerProducts)
+app.use('/product', routerProducts)
 app.use(routerCart)
 app.use(routerUser)
+app.use(routerOrder)
+
 
 
 app.get('/',(request,response)=>{
